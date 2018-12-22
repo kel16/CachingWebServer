@@ -295,7 +295,7 @@ func (c *Context) UploadDoc(rw web.ResponseWriter, req *web.Request) {
 
 	// get id the file was saved with and cache it
 	var idScanned sql.NullString
-	err = db.QueryRow("select id from docs where name = $1, mime = $2", header.Filename, mime).Scan(&idScanned)
+	err = db.QueryRow("select id from docs where name = $1 and mime = $2", header.Filename, mime).Scan(&idScanned)
 	if err != nil || !(idScanned.Valid) {
 		c.err = errors.Wrap(err, "what a trouble")
 		return
